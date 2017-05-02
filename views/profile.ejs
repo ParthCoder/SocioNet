@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>SocioNet</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/css/normalize.min.css">
+        <link rel="stylesheet" href="/css/main.css">
+		<link rel="stylesheet" href="/css/font-awesome.min.css">
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+		<style>
+
+			ul.my_nav_ul{
+				list-style-type: none;
+    			margin: 0;
+    			padding: 0;
+    			overflow: hidden;
+    			background-color:#4286f4;
+			}
+			
+			li.my_nav_li{
+				float:right;
+			}
+
+			li.my_nav_li a.my_nav_a{
+				display: block;
+    			color: white;
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+			}
+
+			li.my_nav_li a.my_nav_a:hover{
+				background-color: black;
+				color:#4286f4;
+				cursor:pointer;
+				cursor:hand;
+			}
+
+			li.my_dropdown{
+				display : inline-block;
+			}
+
+			.my_nav_inp{
+				display: block;
+    			color:black;
+				margin-top:10px;
+				margin-left:50px;
+				text-decoration: none;
+				padding-left: 15px;
+			}
+
+			.my_dropdown-content {
+				display: none;
+				position: absolute;
+				margin-left:50px;
+				background-color: white;
+				min-width: 210px;
+				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				z-index: 1;
+			}
+
+			.my_dropdown-content a {
+				color : white;
+				background-color: #4286f4;
+				padding: 12px 16px;
+				text-decoration: none;
+				display: block;
+				text-align: left;
+			}
+
+			.my_msgbox-content{
+				display : none;
+				position: absolute;
+				background-color: white;
+				width: 300px;
+				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				z-index: 1;
+				padding:10px;
+				color:black;
+			}
+
+			input.my_nav_but{
+    			color: white;
+				text-align: center;
+                margin-left:120px;
+                background-color: black;
+                margin-top : 10px;
+                margin-bottom : 10px;
+                text-decoration: none;
+                padding : 5px;
+                padding-left : 10px;
+                padding-right : 10px;
+                border-radius: 5px;
+			}
+
+            input.my_nav_but:hover{
+				color:#4286f4;
+			}
+
+			/*.my_dropdown:hover .my_dropdown-content {
+				display: block;
+			}*/
+
+			.my_dropdown-content a:hover {background-color:black;color:yellow}
+
+			input.send_rqt{
+				border:0px;
+				background-color:green;
+				border-radius: 5px;
+				padding: 10px;
+				vertical-align: middle;
+				color:white
+			}
+
+			.sidebar {
+    			position: fixed;
+     			width: 250px;
+     			height: 100%;
+     			background: none;
+				z-index:1;
+				margin-left:1272px;
+				font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ 			}
+
+			.sidebar-content1{
+				background-color:white;
+				height:43%;
+				margin-top:60px;
+				margin-left:10px;
+				margin-right:10px;
+				border: 2px solid;
+    			border-radius: 15px;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+				text-align: center;
+				padding-top:10px;
+			}
+
+			.sidebar-content2{
+				background-color:white;
+				height:43%;
+				margin-top:15px;
+				margin-left:10px;
+				margin-right:10px;
+				border: 2px solid;
+    			border-radius: 15px;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+				text-align: center;
+				padding-top:10px;
+			}
+
+			.header-container{
+				position: fixed;
+				z-index:2;
+				width:100%;
+			}
+
+			.notif{
+				color:black;
+				font-size:13px;
+				text-align: left;
+				line-height: 100%;
+				margin-left:5px;
+				margin-right:5px;
+				margin-top:5px;
+				margin-bottom:5px;
+				cursor:pointer;
+				cursor:hand;
+			}
+
+		</style>
+
+        <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+		<script>
+			var myname = "<%= currentUser.username %>";
+		</script>
+		<%
+		if (user.username == currentUser.username) { 
+			var isMe = true;
+		} else {
+			var isMe = false;
+		}
+		%>
+    </head>
+
+    <body style="background-image:url('/img/login-back.jpg');background-size: 100% 800px;background-repeat: no-repeat;background-attachment: fixed;">
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <ul class="my_nav_ul">
+					<li class="my_nav_li" style="float:left">
+						<a href="/"><img src="/img/logo2.png" id="logo"/></a>
+					</li>
+					
+					<li class="my_nav_li">
+						<a href="/logout" class="my_nav_a"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+					</li>
+					<li class="my_nav_li">
+						<a href="/" class="my_nav_a"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+					</li>
+					<li class="my_nav_li">
+						<a onClick="if($('.my_msgbox-content').is(':visible')){$('.my_msgbox-content').slideToggle();$(this).css('background-color','rgb(66,134,244)');$(this).css('color','rgb(255,255,255)');}else{$('.my_msgbox-content').slideToggle();$(this).css('background-color','rgb(0,0,0)');$(this).css('color','rgb(66,134,244)');}" class="my_nav_a"><i class="fa fa-comments" aria-hidden="true"></i> Msg</a>
+						<div class="my_msgbox-content" id="msg_box">
+							<form name="msg_form" method="POST" action="/send_msg" onsubmit="return check_user();">
+								<span style="color:red;font-size:13px;margin-left:50px" id="msg_box_error"></span>
+								<input name="to" type="text" class="my_nav_inp" placeholder="Username" required>
+								<textarea name="msg" class="my_nav_inp" placeholder="Message" required></textarea>
+								<input type="submit" value="Send" class="my_nav_but">
+							</form>
+						</div>
+					</li>
+					<li class="my_nav_li">
+						<a href="/users/<%=currentUser.username%>" class="my_nav_a">
+							<img id="userpic" src="<%=currentUser.image%>">
+							<span id="username"><%= currentUser.username %></span>
+						</a>
+					</li>
+					<li class="my_dropdown" style="float:left">
+						<input id="search_bar" type="text" autocomplete="off" spellcheck="false" placeholder="Find friends..." class="my_nav_inp" onkeyup="searchQuery(this.value)">
+						<div class="my_dropdown-content" id="search_result">
+						</div>
+					</li>
+
+				</ul>
+            </header>
+        </div>
+
+		<div class="sidebar">
+			<div class="sidebar-content1">
+				<span style="color:#4286f4"> NOTIFICATIONS </span>
+				<hr>
+				<div id="notification" style=" width: 220px;height: 250px;overflow-y:auto;">
+					<% for(var i=0;i<notifs.length;i++){
+					if(notifs[i].to === currentUser.username && notifs[i].type === "req"){ %>
+					<div class="notif">
+						<% if(notifs[i].status === "not_read"){ %>
+						<a onClick="mark_read('<%= notifs[i].time %>','/users/<%= notifs[i].from %>')" style="text-decoration:none;color:red;"><b><%= notifs[i].body%></b></a>
+						<% }else{ %>
+						<a style="text-decoration:none;color:black;"><%= notifs[i].body%></a>
+						<% } %>
+					</div>
+					<hr>
+					<% }else if(notifs[i].from === currentUser.username && notifs[i].type === "res"){ %>
+					<div class="notif">
+						<% if(notifs[i].status === "not_read"){ %>
+						<a onClick="mark_read('<%= notifs[i].time %>','/users/<%= notifs[i].to %>')" style="text-decoration:none;color:red;"><b><%= notifs[i].body%></b></a>
+						<% }else{ %>
+						<a style="text-decoration:none;color:black;"><%= notifs[i].body%></a>
+						<% } %>
+					</div>
+					<hr>
+					<% }} %>
+				</div>
+			</div>
+			<div class="sidebar-content2">
+				<span style="color:#4286f4"> NEW MESSAGES </span>
+				<hr>
+				<div id="message" style=" width: 220px;height: 250px;overflow-y:auto;">
+					<% for(var i=0;i<messages.length;i++){
+					if(messages[i].to === currentUser.username){ %>
+					<div class="notif">
+						<a style="text-decoration:none;color:#4286f4"><b>@<%= messages[i].from%>:</b></a><br>
+						<a style="text-decoration:none;color:black"><%= messages[i].body %></a>
+					</div>
+					<hr>
+					<% }} %>
+				</div>
+			</div>
+		</div>
+
+        <div class="main-container">
+            <div class="main wrapper clearfix">
+				<br><br><br>
+				<aside class="centerme">
+					<br>
+					<h1 id="theusername"><%= user.username %></h1>
+					<br>
+					<img id="profPic" src="<%= user.image %>">
+					<br>
+					<% if (isMe) { %> 
+					<form method="POST" action="/profile" enctype="multipart/form-data">
+						Upload New Profile Image : <br>
+						<input name="image" type="file" id="image" value="Upload"/><br><br>
+						Bio<br>
+						<textarea id="bio" name="bio"><%= user.bio %></textarea><br><br>
+						<input class="sub" type="submit" value="Update">
+					</form>
+					<% } else { %>
+						<%= user.bio %>
+						<br>
+					<% } %>
+					<br>
+				</aside>
+				<article class="centerme">
+					<div id="postsOuter">
+					<div id="socket">
+					<% 
+					var flag;
+					if (isMe) { %>
+						<form action="/statuses"  id="postNewStatus" method="POST">
+							<textarea id="newstatus" name="status" placeholder="What's your status?" required></textarea>
+							<input class="sub" type="submit" value="Post" style="margin-left:50px"/>
+						</form>
+						<br>
+					<% 
+						flag = true;
+					}
+					else{
+						flag = false;
+						for(var i=0;i<currentUser.friends.length;i++)
+							if(currentUser.friends[i] === user.username){
+								flag = true;
+								break;
+							}
+					}
+					if(flag){
+					for (var i=0;i<statuses.length;i++) 
+					{ %>
+						<div class="post">
+							<div class="timestamp"><i><abbr class="timeago" title="<%= new Date(statuses[i].time).toISOString() %>"></abbr></i></div>
+							<a class="colorize" href="/users/<%= user.username %>">
+								<div class="smallpic">
+									<img class="smallpic_img" src="<%= user.image %>">
+								</div>	
+								<div class="smallname">@<%= user.username %></div>
+							</a>
+							<br>
+							<div class="statusbody"><%= statuses[i].body %></div>
+						</div>
+					<% }}else{
+						flag = false;
+						for(var i=0;i<currentUser.waiting.length;i++)
+							if(currentUser.waiting[i] === user.username){
+								flag = true;
+								break;
+							}
+						if(flag){ %>
+						<h3> Waiting for response... </h3>
+						<input class="send_rqt" type="submit" value="Friend Request Sent" style="background-color:lightgray;color:black" disabled>
+						<br><br>
+						<% }else{ 
+						flag = false;
+						for(var i=0;i<currentUser.pending.length;i++)
+							if(currentUser.pending[i] === user.username){
+								flag = true;
+								break;
+							}
+						if(flag){%>
+						<h3> <%= user.username %> has sent you friend request... </h3>
+						<input class="send_rqt" type="submit" value="Accept" onclick="respond_request('<%= user.username %>',myname,'Accept')">
+						<input class="send_rqt" type="submit" value="Reject" onclick="respond_request('<%= user.username %>',myname,'Reject')" style="background-color: red">
+						<% }else{ %>
+						<h3> Please send friend request to view profile </h3>
+						<input class="send_rqt" type="submit" value="Send Friend Request" onclick="send_request(myname,'<%= user.username %>')">
+						<br><br>
+					<% }}} %>
+					</div></div>
+				</article>
+            </div>
+        </div>
+
+		<div id="sound"></div>
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/vendor/jquery.timeago.js"></script>
+        <script src="/js/main.js"></script>
+    </body>
+</html>
+

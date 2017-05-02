@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>SocioNet</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/css/normalize.min.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <style>
+            ul.my_nav_ul{
+				list-style-type: none;z-index: 1;
+    			margin: 0;
+    			padding: 0;
+    			overflow: hidden;
+    			background-color:#4286f4;
+			}
+			
+			li.my_nav_li{
+				float:left;
+			}
+
+            input.my_nav_but{
+				
+    			color: white;
+				text-align: center;
+                margin-left:50px;
+                background-color: black;
+                margin-top : 10px;
+                margin-bottom : 10px;
+                text-decoration: none;
+                padding : 5px;
+                padding-left : 10px;
+                padding-right : 10px;
+                border-radius: 5px;
+			}
+
+            input.my_nav_but:hover{
+				color:#4286f4;
+			}
+
+			input.my_nav_inp{
+				display: block;
+    			color:black;
+				margin-top:10px;
+				margin-left:50px;
+				text-decoration: none;
+				padding-left: 15px;
+			}
+        </style>
+        <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body style="background-image:url('/img/back2.png');background-size: 100% 800px;background-repeat: no-repeat;background-attachment: fixed;">
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <ul class="my_nav_ul">
+					<li class="my_nav_li">
+						<a href="/"><img src="/img/logo2.png" id="logo"/></a>
+					</li>
+					
+                    <form action="/login" method="POST">
+					<li class="my_nav_li" style="margin-left:200px">
+						<input type="text" name="username" placeholder="Username" class="my_nav_inp" required>
+					</li>
+					<li class="my_nav_li">
+						<input type="password" name="password" placeholder="Password" class="my_nav_inp" required>
+					</li>
+                    <li class="my_nav_li">
+						<input type="submit" value="Login" class="my_nav_but">
+					</li>
+                    </form>
+				</ul>
+                <% if (error2) { %> <div class="error" style="color:yellow;float:right">*<%= error2 %></div><% } %>
+            </header>
+        </div>
+        <div class="main-container">
+            <div class="main wrapper clearfix">
+                <br><br><br><br><br>
+				<aside class="centerme" style="background-color:lightcyan;border-radius:20px;">
+					<h3 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color:black">Not a member? Sign up!</h3>
+					<% if (error1) { %> <div class="error" style="color:red;"><%= error1 %></div><% } %>
+					<form method="post" action="/signup">
+						<input type="text" name="username" placeholder="username" class="my_nav_inp" required/>
+						<input type="password" name="password" placeholder="password" class="my_nav_inp" required/>
+						<input type="password" name="confirm" placeholder="confirm" class="my_nav_inp" required/>
+						<input type="submit" value="Sign Up!" class="my_nav_but" style="margin-right:50px;">
+					</form>
+				</aside>
+                <br>
+            </div>
+        </div>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/vendor/jquery.timeago.js"></script>
+        <script src="/js/main.js"></script>
+    </body>
+</html>
+
+   
+
