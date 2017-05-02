@@ -13,8 +13,8 @@ To run application :-
 1. $ node server.js
 2. Open localhost:3000 to access application.
 
-> As of now, only 2 pages are availabe -> homepage and profile page.
-> On the top, search bar is provided which matches the query and gives matched usernames list. 
+-> As of now, only 2 pages are availabe -> homepage and profile page.
+-> On the top, search bar is provided which matches the query and gives matched usernames list. 
   Also send message button given. Used to send message to any valid user on the database. 
 > On the right, sidebar is provided which gives real-time notifications(of friend-request or friend-request response) 
   and new messages sent to user.
